@@ -1,27 +1,27 @@
-package binarySearchTree;
+package binarySearchTreeII;
 
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class UniqueBinarySearchTree {
+public class UniqueBinarySearchTreeII {
     private TreeNode parent;
     private Set<TreeNode> treeNodes = new HashSet<>();
 
-    public UniqueBinarySearchTree(int root) {
+    public UniqueBinarySearchTreeII(int root) {
         this.parent = new TreeNode(root);
     }
 
-    public UniqueBinarySearchTree() {
+    public UniqueBinarySearchTreeII() {
     }
 
     public static void main(String[] args) {
-        UniqueBinarySearchTree binarySearchTree = new UniqueBinarySearchTree();
+        UniqueBinarySearchTreeII binarySearchTree = new UniqueBinarySearchTreeII();
         List<TreeNode> results = binarySearchTree.generateTrees(4);
         System.out.println(results.size());
     }
 
     public List<TreeNode> generateTrees(int n) {
-        int [] tab = IntStream.range(1,n+1).toArray();
+        int[] tab = IntStream.range(1, n + 1).toArray();
         generateAllTableCombinations(tab.length, tab);
         return new ArrayList<>(this.treeNodes);
     }
@@ -52,23 +52,24 @@ public class UniqueBinarySearchTree {
 
     /**
      * permutation function
+     *
      * @param elements table to calculate permutation for
-     * @param n table size
+     * @param n        table size
      */
     public void generateAllTableCombinations(
             int n, int[] elements) {
 
-        if(n == 1) {
-            UniqueBinarySearchTree binarySearchTree = new UniqueBinarySearchTree(elements[0]);
-            Arrays.stream(elements).filter(el -> el!=elements[0]).forEach(el -> binarySearchTree.insertDataInTreeNode(el));
+        if (n == 1) {
+            UniqueBinarySearchTreeII binarySearchTree = new UniqueBinarySearchTreeII(elements[0]);
+            Arrays.stream(elements).filter(el -> el != elements[0]).forEach(el -> binarySearchTree.insertDataInTreeNode(el));
             this.treeNodes.add(binarySearchTree.parent);
         } else {
-            for(int i = 0; i < n-1; i++) {
+            for (int i = 0; i < n - 1; i++) {
                 generateAllTableCombinations(n - 1, elements);
-                if(n % 2 == 0) {
-                    swap(elements, i, n-1);
+                if (n % 2 == 0) {
+                    swap(elements, i, n - 1);
                 } else {
-                    swap(elements, 0, n-1);
+                    swap(elements, 0, n - 1);
                 }
             }
             generateAllTableCombinations(n - 1, elements);
@@ -77,14 +78,15 @@ public class UniqueBinarySearchTree {
 
     /**
      * Swap Characters at position
+     *
      * @param elements table value
-     * @param i position 1
-     * @param j position 2
+     * @param i        position 1
+     * @param j        position 2
      * @return swapped string
      */
-    public void swap(int[] elements, int i, int j)
-    {   int temp;
-        temp = elements[i] ;
+    public void swap(int[] elements, int i, int j) {
+        int temp;
+        temp = elements[i];
         elements[i] = elements[j];
         elements[j] = temp;
     }
